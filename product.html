@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+		
+		<script>
+			var alarmTime;
+			var curTime;
+			var curDate;
+			var hourNum; 
+			var minNum;
+			var namesOfPerscriptions = [];
+			var sideAffects = [];
+			var alarms = [];
+
+
+			function GetTime() {
+				var dt = new Date();
+				document.clock.local.value = IfZero(dt.getHours()) + ":" + IfZero(dt.getMinutes());
+				setTimeout("GetTime()", 1000);
+				curTime = (IfZero(dt.getHours()) + ":" + IfZero(dt.getMinutes()));
+			}
+
+			function IfZero(num) {
+				return ((num <= 9) ? ("0" + num) : num);
+			}
+
+			function setAlarm(){
+
+				alarmHour = document.getElementById("hourInput").value;
+				// alert("alarm hour is " + alarmHour);
+				alarmMin = document.getElementById("minInput").value;
+
+				alarmTime = alarmHour + ":" + alarmMin;
+
+				alarms.push(alarmTime);
+
+				alarmOn();
+
+				// alarms = [];
+			}
+			
+			function alarmOn() {
+				// alert(document.getElementById("onRadio").checked);
+				// alert("alarmTime is " + alarmTime + "current time is " + curTime);
+
+
+
+				for(i = 0; i < alarms.length; i++){
+					GetTime();
+					if (alarms[i] == curTime) {
+						alert(alarms[i] + " Take" + namesOfPerscriptions[i] + ". These are it's Side Affects: " + sideAffects[i]);	
+						//delete the alarm that just went off. Figure out for loop length
+						deleteBottle(i);
+
+					}
+					else {
+						setTimeout("alarmOn()", 30000);
+					}
+				   
+				}}
+
+
+			function myFunction() { 
+		   		
+		   		var x = document.getElementById("nameOfPerscriptionInput").value;
+				namesOfPerscriptions.push(x);
+
+				var y = document.getElementById("sideAffectsInput").value;
+				sideAffects.push(y);
+
+		   		
+			}
+
+			function showBottles() {
+				var picture1 = document.getElementById("space1");
+				var picture2 = document.getElementById("space2");
+				var picture3 = document.getElementById("space3");
+				var picture4 = document.getElementById("space4");
+				var picture5 = document.getElementById("space5");
+				var picture6 = document.getElementById("space6");
+
+
+				var listOfPictures = [picture1, picture2, picture3, picture4, picture5, picture6];
+
+				var persc1 = document.getElementById("Perscription1");
+				var persc2 = document.getElementById("Perscription2");
+				var persc3 = document.getElementById("Perscription3");
+				var persc4 = document.getElementById("Perscription4");
+				var persc5 = document.getElementById("Perscription5");
+				var persc6 = document.getElementById("Perscription6");
+				var listOfPerscriptions = [persc1, persc2, persc3, persc4, persc5, persc6];
+
+				var afct1 = document.getElementById("Affects1");
+				var afct2 = document.getElementById("Affects2");
+				var afct3 = document.getElementById("Affects3");
+				var afct4 = document.getElementById("Affects4");
+				var afct5 = document.getElementById("Affects5");
+				var afct6 = document.getElementById("Affects6");
+				var listOfAffects = [afct1, afct2, afct3, afct4, afct5, afct6];
+
+				var btn1 = document.getElementById("button1");
+				var btn2 = document.getElementById("button2");
+				var btn3 = document.getElementById("button3");
+				var btn4 = document.getElementById("button4");
+				var btn5 = document.getElementById("button5");
+				var btn6 = document.getElementById("button6");
+				var listOfButtons = [btn1, btn2, btn3, btn4, btn5, btn6];
+
+
+
+
+				var first_image ="blob.png";
+				var second_image = "rx.png";
+				
+				var found = Boolean(false);
+				var count = 0;
+				
+				while (found == false){
+
+					if (listOfPictures[count].src == first_image){
+						listOfPictures[count].src = second_image;
+						listOfButtons[count].style.visibility = "visible";
+						listOfPerscriptions[count].innerHTML = namesOfPerscriptions[count];
+						listOfAffects[count].innerHTML = sideAffects[count];
+
+						found = true;
+					}
+			        else {
+			          count++;
+			        }
+
+			        if (count >= 6){
+			        	found = true;
+			        }
+			    }
+			}
+
+			   
+
+
+			function deleteBottle(ind){
+				// remove (parameter) from namesOfPerscriptions
+				
+				namesOfPerscriptions.splice(ind, 1);
+				sideAffects.splice(ind, 1);
+
+				alarms.splice(ind, 1);
+				
+				document.getElementById("Perscription1").innerHTML = ""
+				document.getElementById("Perscription2").innerHTML = ""
+				document.getElementById("Perscription3").innerHTML = ""
+				document.getElementById("Perscription4").innerHTML = ""
+				document.getElementById("Perscription5").innerHTML = ""
+				document.getElementById("Perscription6").innerHTML = ""
+
+				document.getElementById("Affects1").innerHTML = ""
+				document.getElementById("Affects2").innerHTML = ""
+				document.getElementById("Affects3").innerHTML = ""
+				document.getElementById("Affects4").innerHTML = ""
+				document.getElementById("Affects5").innerHTML = ""
+				document.getElementById("Affects6").innerHTML = ""
+
+				var picture1 = document.getElementById("space1");
+				var picture2 = document.getElementById("space2");
+				var picture3 = document.getElementById("space3");
+				var picture4 = document.getElementById("space4");
+				var picture5 = document.getElementById("space5");
+				var picture6 = document.getElementById("space6");
+
+				var listOfPictures = [picture1, picture2, picture3, picture4, picture5, picture6];	
+
+				var btn1 = document.getElementById("button1");
+				var btn2 = document.getElementById("button2");
+				var btn3 = document.getElementById("button3");
+				var btn4 = document.getElementById("button4");
+				var btn5 = document.getElementById("button5");
+				var btn6 = document.getElementById("button6");
+				var listOfButtons = [btn1, btn2, btn3, btn4, btn5, btn6];
+
+				//alert(listOfPictures[1].src + " " + listOfPictures[2].src);
+
+				var first_image ="blob.png";
+				var second_image = "rx.png";
+				
+				var found = Boolean(false);
+				var count = 5;
+				
+				while (found == false){
+
+					if (listOfPictures[count].src == second_image){
+						listOfPictures[count].src = first_image;
+						listOfButtons[count].style.visibility = "hidden";
+
+						found = true;
+					}
+			        else {
+			          count = count-1;
+			        }
+
+			        if (count < 0){
+			        	found = true;
+			        }
+			    }
+
+				var persc1 = document.getElementById("Perscription1");
+				var persc2 = document.getElementById("Perscription2");
+				var persc3 = document.getElementById("Perscription3");
+				var persc4 = document.getElementById("Perscription4");
+				var persc5 = document.getElementById("Perscription5");
+				var persc6 = document.getElementById("Perscription6");
+				var listOfPerscriptions = [persc1, persc2, persc3, persc4, persc5, persc6];
+
+				var afct1 = document.getElementById("Affects1");
+				var afct2 = document.getElementById("Affects2");
+				var afct3 = document.getElementById("Affects3");
+				var afct4 = document.getElementById("Affects4");
+				var afct5 = document.getElementById("Affects5");
+				var afct6 = document.getElementById("Affects6");
+				var listOfAffects = [afct1, afct2, afct3, afct4, afct5, afct6];
+
+				for (i = 0; i < namesOfPerscriptions.length; i++){
+					listOfPerscriptions[i].innerHTML = namesOfPerscriptions[i];
+					listOfAffects[i].innerHTML = sideAffects[i];
+				}
+
+				
+
+			
+			}
+
+		</script>
+
+	<style>
+	 	/*all editing style for page */ 
+		/*this is the image class*/ 
+			.image{ 
+			max-width: 300%;
+			height: auto;
+			position: relative;
+			
+			  
+		}
+
+
+
+
+		.image .text {
+			position: absolute;
+			width: 283px;
+			height: 50px;
+			top: 40%;
+			left:0px;
+			color:#000000;
+				text-align: left;				
+				margin-left:5%;
+				font-weight: bold;
+				opacity:0.7;
+		}
+
+
+		#h1dose{
+			margin-left:5%;
+			margin:center;
+			text-align:center;
+		}
+
+
+		body{
+			
+			margin: 10%;
+			text-align: 100%;
+			
+		}
+
+		#divtitlewords{
+			background-color: rgb(135, 206, 250);
+		}
+
+
+		#titlewords{
+			color: rgb(0, 0, 0);
+			/*color:black*/
+			margin: 10%;
+			text-align: center;
+		}
+
+		#letters{
+			position: absolute;
+			bottom: 30px;
+		}	
+
+		#rx{
+			position: relative;
+		}
+
+		.medication {
+			text-align: center;
+			
+		}
+		#logo{
+			text-align: center;
+			margin-left: 20%;
+			margin-right: 20%;
+
+		}
+		#divcontlogo{
+			margin-left: 15%;
+			margin-right: 15%;
+			margin-top: 20%;
+			background-color: rgb(135, 206, 250 );
+			height: 150;
+			width: 100;
+			text-align: center;
+
+			
+		}
+
+		#slogan{
+			background-color: rgb(135, 206, 250);
+		}
+
+		#blueback{
+			background-color: rgb(135, 206, 250);
+		}
+	
+	</style> 
+
+
+
+	</head>
+
+	<body background = "tumblr2.gif" onload="GetTime()">
+		<a rel="htmlsheet" href="database_pills.html"> Common Medications Taken</a>
+		<div id="divcontlogo">  <img id="logo" src="Mydrawing.jpg"> </div>
+		<br>
+		<div id= "slogan"> 
+			<h1 id= "h1dose"> DOSE <br> keepin' your pills simple since 2016</h1> 
+		</div>
+		
+
+
+
+		Perscription Name: <input type="text" id="nameOfPerscriptionInput"> 
+
+		<br>
+
+		Side Affects: <input type="text" id="sideAffectsInput">
+
+
+		<!-- below controls table characteristics-->
+		<table width="45%" border="5">
+		<!-- end of control table characteristics-->
+		<tr>
+		<td align="middle">
+		<form name="clock">
+		<input size="8" name="local">
+		
+		</form>
+		</td>
+		<td align="middle">
+		Set Alarm:
+		<br>
+		<!-- reason why the window pops up twice is because alarm set changes twice -->
+		<select id="hourInput" name="hourOpt" size="1">
+		<option value="00">00</option><option value="01">01</option><option value="02">02</option><option value="03">03
+		</option><option value="04">04</option><option value="05">05</option><option value="06">06</option><option value="07">07
+		</option><option value="08">08</option><option value="09">09</option><option value="10">10</option><option value="11">11
+		</option><option selected="" value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16
+		</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20
+		</option><option value="21">21</option><option value="22">22</option><option value="23">23
+		</option>
+		</select>
+		<select id="minInput" name="minOpt" size="1">
+		<option selected="" value="00">00</option><option value="01">01</option><option value="02">02</option><option value="03">03
+		</option><option value="04">04</option><option value="05">05</option><option value="06">06</option><option value="07">07
+		</option><option value="08">08</option><option value="09">09</option><option value="10">10</option><option value="11">11
+		</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15
+		</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19
+		</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23
+		</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27
+		</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31
+		</option><option value="32">32</option><option value="33">33</option><option value="34">34</option><option value="35">35
+		</option><option value="36">36</option><option value="37">37</option><option value="38">38</option><option value="39">39
+		</option><option value="40">40</option><option value="41">41</option><option value="42">42</option><option value="43">43
+		</option><option value="44">44</option><option value="45">45</option><option value="46">46</option><option value="47">47
+		</option><option value="48">48</option><option value="49">49</option><option value="50">50</option><option value="51">51
+		</option><option value="52">52</option><option value="53">53</option><option value="54">54</option><option value="55">55
+		</option><option value="56">56</option><option value="57">57</option><option value="58">58</option><option value="59">59
+		</option>
+		</select>
+		</td>
+		</tr>
+		</td>
+		
+		</table>
+
+
+		<button onclick = "myFunction(); showBottles(); setAlarm()" >Create</button>
+
+
+		<div id="blueback" >
+			<div id= "divtitlewords" ><h1 id="titlewords">Your Daily Medications</h1></div>
+		
+			<div class = "medication">
+				<h1 id="Perscription1"></h1>
+				<p id="Affects1"></p> 
+				<img id="space1" src="blob.png"></img>
+				<br>
+				<button id = "button1" onclick = "deleteBottle(0)" style="visibility: hidden;">Delete</button>
+			</div>
+
+			<div class = "medication">
+				<h1 id="Perscription2"></h1>
+				<p id="Affects2"></p> 
+				<img id="space2" src="blob.png"></img>
+				<br>
+				<button id = "button2" onclick = "deleteBottle(1)" style="visibility: hidden;">Delete</button>
+			</div>
+
+			<div class = "medication">
+				<h1 id="Perscription3"></h1>
+				<p id="Affects3"></p> 
+				<img id="space3" src="blob.png"></img>
+				<br>
+				<button id = "button3" onclick = "deleteBottle(2)" style="visibility: hidden;">Delete</button>
+			</div>
+
+			<div class = "medication">
+				<h1 id="Perscription4"></h1>
+				<p id="Affects4"></p> 
+				<img id="space4" src="blob.png"></img>
+				<br>
+				<button id = "button4" onclick = "deleteBottle(3)" style="visibility: hidden;">Delete</button>
+			</div>
+
+			<div class = "medication">
+				<h1 id="Perscription5"></h1>
+				<p id="Affects5"></p> 
+				<img id="space5" src="blob.png"></img>
+				<br>
+				<button id = "button5" onclick = "deleteBottle(4)" style="visibility: hidden;">Delete</button>
+			</div>
+
+			<div class = "medication">
+				<h1 id="Perscription6"></h1>
+				<p id="Affects6"></p> 
+				<img id="space6" src="blob.png"></img>
+				<br>
+				<button id = "button6" onclick = "deleteBottle(5)" style="visibility: hidden;">Delete</button>
+			</div>
+		</div>
+
+
+	</body>
+
+</html>
+	
