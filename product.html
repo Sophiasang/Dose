@@ -118,7 +118,7 @@
 				
 				while (found == false){
 
-					if (listOfPictures[count].src == first_image){
+					if (listOfPictures[count].src.match(first_image)){
 						listOfPictures[count].src = second_image;
 						listOfButtons[count].style.visibility = "visible";
 						listOfPerscriptions[count].innerHTML = namesOfPerscriptions[count];
@@ -188,7 +188,7 @@
 				
 				while (found == false){
 
-					if (listOfPictures[count].src == second_image){
+					if (listOfPictures[count].src.match(second_image)){
 						listOfPictures[count].src = first_image;
 						listOfButtons[count].style.visibility = "hidden";
 
